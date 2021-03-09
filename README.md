@@ -1,2 +1,2 @@
 # kid-management-system
-小孩管理系统
+小孩儿管理系统

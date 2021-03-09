@@ -1,0 +1,114 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Kms Backend
+paths: {}
+components:
+  schemas:
+    Post:
+      type: object
+      required:
+        - author
+        - title
+        - content
+      properties:
+        author:
+          type: AVUser
+          readOnly: true
+          x-object-index: default
+          x-object-queryable: true
+          description: Author of the post.
+        rootPost:
+          type: Post
+          readOnly: true
+          x-object-index: default
+          x-object-queryable: true
+          description: Root post if this post is a re-post, otherwise set to `null`
+        parentPost:
+          type: Post
+          readOnly: true
+          x-object-index: default
+          x-object-queryable: true
+          description: Parent post if this post is a re-post, otherwise set to `null`
+        title:
+          type: string
+          readOnly: true
+          description: Required, title of the post.
+          minLength: 1
+          maxLength: 30
+        content:
+          type: string
+          readOnly: true
+          description: Content of the post.
+          minLength: 0
+          maxLength: 300
+        countThumbup:
+          type: integer
+          readOnly: true
+          minimum: 0
+          description: count number of thumbup in PostReaction.
+        countComment:
+          type: integer
+          readOnly: true
+          minimum: 0
+        countRepost:
+          type: integer
+          readOnly: true
+          minimum: 0
+        repliedAt:
+          type: string
+          format: date
+          readOnly: true
+          x-object-index: default
+          description: Latest replied time (include comment and re-post)
+        development:
+          type: boolean
+          readOnly: true
+          x-object-index: default
+          description: Differentiate the posts version, true is beta.
+    Comment:
+      type: object
+      required:
+        - post
+        - author
+        - content
+      properties:
+        post:
+          type: Post
+          readOnly: true
+          x-object-index: default
+          x-object-queryable: true
+          description: The post comment is replied to.
+        author:
+          type: AVUser
+          readOnly: true
+          description: Author of the comment.
+        parentComment:
+          type: Comment
+          description: Parent comment if this comment is replied to comment, otherwise set to `null`
+        content:
+          type: string
+          description: Content of the comment.
+          minLength: 1
+    PostReaction:
+      type: object
+      required:
+        - post
+        - author
+        - emoji
+      properties:
+        post:
+          type: Post
+          readOnly: true
+          x-object-index: default
+          x-object-queryable: true
+        author:
+          type: AVUser
+          readOnly: true
+        emoji:
+          type: string
+          enum: [thumbup]
+          description: Reaction of the post.
+      x-object-cross-unique-index:
+        - post
+        - author

@@ -1,0 +1,4 @@
+{{^vendorExtensions.x-object-abstract}}
+@AVClassName("{{classname}}")
+{{/vendorExtensions.x-object-abstract}}
+{{>abstract_modifier}}class {{classname}} : {{#parent}}{{parent}}{{/parent}}{{^parent}}AVObject{{/parent}}() {

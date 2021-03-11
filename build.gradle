@@ -1,0 +1,93 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext.kotlin_version = "1.4.21"
+    ext.leancloud_storage_version = '7.2.2'
+    ext.kotlin_coroutine_version = '1.4.1'
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://jitpack.io' }
+        maven { url "https://plugins.gradle.org/m2/" }
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://repo1.maven.org/maven2/' }
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "gradle.plugin.org.gretty:gretty:3.0.3"
+        classpath("org.openapitools:openapi-generator-gradle-plugin:5.0.0") {
+            exclude group: "com.github.jknack", module: "handlebars"
+            exclude group: "com.github.jknack", module: "handlebars-jackson2"
+        }
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+plugins {
+    id "com.diffplug.spotless" version "5.7.0"
+}
+
+spotless {
+    java {
+        target '*/src/**/*.java'
+        googleJavaFormat()
+    }
+
+    kotlin {
+        target '*/src/**/*.kt'
+        targetExclude([
+                "common/src/main/kotlin/**/*.kt",
+                "openapi-client/src/main/kotlin/**/*.kt",
+                "openapi-server/src/main/kotlin/**/api/*Api.kt",
+                "openapi-server/src/main/kotlin/**/model/*.kt"
+        ])
+        ktlint('0.39.0').userData(['disabled_rules': 'no-wildcard-imports'])
+    }
+
+    format 'xml', {
+        target 'app/src/main/**/*.xml'
+        eclipseWtp('xml').configFile('spotless.xml.prefs')
+    }
+
+    format 'gradle', {
+        target '**/*.gradle'
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+task updatePrepush(type: Exec) {
+    inputs.files 'devtools/pre-push.sh'
+    outputs.files '.git/hooks/pre-push'
+
+    commandLine 'cp', '-f', inputs.files[0], outputs.files[0]
+}
+
+gradle.startParameter.taskNames = [":updatePrepush"] + gradle.startParameter.taskNames
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task buildKotlinSpring(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+    generatorName = "kotlin-spring"
+    inputSpec = "$rootDir/openapi.yaml"
+    outputDir = "$rootDir/openapi-server"
+    apiPackage = "com.example.openapi_server.api"
+    modelPackage = "com.example.openapi_server.model"
+    invokerPackage = "com.example.openapi_server"
+    configOptions = [
+            enumPropertyNaming: "UPPERCASE",
+            gradleBuildFile: "false",
+            interfaceOnly: "true",
+    ]
+}

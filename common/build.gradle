@@ -1,0 +1,31 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    compile "cn.leancloud:engine-core:${versions.leancloudStorage}"
+    implementation deps.kotlin
+    implementation deps.kotlinCoroutineRx2
+    implementation "cn.leancloud:storage-core:${versions.leancloudStorage}"
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+task buildLeancloudClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+    generatorName = "kotlin"
+    inputSpec = "$projectDir/kms-leancloud.yaml"
+    templateDir = "$projectDir/src/main/resources/openapi-kotlin-leancloud"
+    outputDir = "$projectDir"
+    apiPackage = "com.kms.common.api"
+    modelPackage = "com.kms.common.storage"
+    invokerPackage = "com.kms.common"
+    configOptions = [
+            collectionType: "list",
+            dateLibrary: "java8",
+            enumPropertyNaming: "UPPERCASE"
+    ]
+    languageSpecificPrimitives = [ "AVFile", "Any", "AVUser" ]
+    outputs.upToDateWhen { false }
+}
+
+compileKotlin.dependsOn tasks.buildLeancloudClient

@@ -1,0 +1,221 @@
+import cn.leancloud.AVException
+import cn.leancloud.AVFile
+import cn.leancloud.AVUser
+import cn.leancloud.AVObject
+import cn.leancloud.AVQuery
+import cn.leancloud.EngineHook
+import cn.leancloud.EngineHookType
+import cn.leancloud.annotation.AVClassName
+import cn.leancloud.utils.StringUtil
+
+{{#description}}
+/**
+ * {{{description}}}
+ */
+{{/description}}
+{{>class_declare}}
+    companion object {
+        const val CLASS = "{{classname}}"
+        {{#vars}}
+        {{#deprecated}}
+        @Deprecated("{{description}}")
+        {{/deprecated}}
+        const val KEY_{{nameInSnakeCase}} = "{{name}}"
+        {{/vars}}
+        {{#vars}}
+        {{#vendorExtensions.x-object-queryable}}
+
+        {{#deprecated}}
+        @Deprecated("{{description}}")
+        {{/deprecated}}
+        {{>query_fun}}.where{{nameInCamelCase}}Is({{name}}: {{>data_type}}): {{>query_ret}} {
+            return whereEqualTo(KEY_{{nameInSnakeCase}}, {{name}})
+        }
+        {{#isString}}
+
+        {{>query_fun}}.where{{nameInCamelCase}}ContainedIn({{name}}List: List<{{>data_type}}>): {{>query_ret}} {
+            return whereContainedIn(KEY_{{nameInSnakeCase}}, {{name}}List)
+        }
+        {{/isString}}
+        {{/vendorExtensions.x-object-queryable}}
+        {{/vars}}
+        {{^vendorExtensions.x-object-abstract}}
+
+        /**
+         * Create pointer with objectId only for query.
+         */
+        fun newPointer(objectId: String): {{classname}} {
+            return createWithoutData({{classname}}::class.java, objectId)
+        }
+
+        fun newBuilder(): Builder {
+            return Builder()
+        }
+        {{/vendorExtensions.x-object-abstract}}
+
+        @Throws(IllegalArgumentException::class)
+        fun validate(x: {{classname}}): {{classname}} {
+            {{#parent}}
+            {{parent}}.validate(x)
+            {{/parent}}
+            {{#vars}}
+            {{#hasValidation}}
+            x.{{name}}{{^required}}?{{/required}}.let {
+              // Validation logic.
+              {{#isString}}
+              {{#minLength}}
+              require(it.length >= {{minLength}}) {
+                  "{{name}} length needs to be at least {{minLength}}, got ${it.length}"
+              }
+              {{/minLength}}
+              {{#maxLength}}
+              require(it.length <= {{maxLength}}) {
+                  "{{name}} length needs to be at most {{maxLength}}, got ${it.length}"
+              }
+              {{/maxLength}}
+              {{/isString}}
+              {{#isNumeric}}
+              {{#minimum}}
+              require(it >= {{minimum}}) {
+                  "{{name}} needs to be at least {{minimum}}, got $it"
+              }
+              {{/minimum}}
+              {{#maximum}}
+              require(it <= {{maximum}}) {
+                  "{{name}} needs to be at most {{maximum}}, got $it"
+              }
+              {{/maximum}}
+              {{/isNumeric}}
+              {{#isContainer}}
+              {{#uniqueItems}}
+              require(it.size == it.distinct().size) {
+                  "Contains duplicated value in {{name}}: $it"
+              }
+              {{/uniqueItems}}
+              {{/isContainer}}
+            }
+            {{/hasValidation}}
+            {{/vars}}
+            return x
+        }
+    }
+
+{{#vars}}
+  {{#isEnum}}
+    enum class {{nameInCamelCase}}(val value: kotlin.String) {
+    {{#allowableValues}}
+      {{#enumVars}}
+        {{name}}({{{value}}}),
+      {{/enumVars}}
+    {{/allowableValues}}
+    }
+  {{/isEnum}}
+
+{{/vars}}
+{{#vars}}
+    {{^deprecated}}
+    {{#description}}
+    /**
+     * {{{description}}}
+     */
+    {{/description}}
+    {{/deprecated}}
+    {{#deprecated}}
+    @Deprecated("{{description}}")
+    {{/deprecated}}
+    var {{name}}: {{>data_type}}
+    {{#isContainer}}
+        get() = getList(KEY_{{nameInSnakeCase}}){{^required}}?{{/required}}.map { it as {{{items.dataType}}} }
+    {{/isContainer}}
+    {{^isContainer}}
+      {{#isEnum}}
+        get() = {{nameInCamelCase}}.values().find { it.value == getString(KEY_{{nameInSnakeCase}}) }{{#required}}!!{{/required}}
+      {{/isEnum}}
+      {{^isEnum}}
+        {{#isDate}}
+        get() = getDate(KEY_{{nameInSnakeCase}})
+        {{/isDate}}
+        {{^isDate}}
+        get() {
+            val value = get(KEY_{{nameInSnakeCase}})
+            return if (value is {{>data_type}}) {
+                value
+            } else {
+            {{#complexType}}
+                getJSONObject(KEY_{{nameInSnakeCase}})
+                    .getString(KEY_OBJECT_ID){{^required}}?{{/required}}.let {
+                        createWithoutData({{complexType}}::class.java, it)
+                    }
+            {{/complexType}}
+            {{^complexType}}
+                throw AVException(AVException.INCORRECT_TYPE, "Invalid value, expect {{>data_type}}, got ${value.javaClass}")
+            {{/complexType}}
+            }
+        }
+        {{/isDate}}
+      {{/isEnum}}
+    {{/isContainer}}
+        set(value) = put(KEY_{{nameInSnakeCase}}, {{#isEnum}}value{{^required}}?{{/required}}.value{{/isEnum}}{{#isDate}}StringUtil.stringFromDate(value){{/isDate}}{{^isEnum}}{{^isDate}}value{{/isDate}}{{/isEnum}})
+
+{{/vars}}
+
+    {{>abstract_modifier}}class Builder internal constructor() {{>builder_parent_class}}{
+        {{#hasChildren}}protected {{/hasChildren}}{{>abstract_modifier}}{{#parent}}override {{/parent}}val value: {{classname}}{{^vendorExtensions.x-object-abstract}} = {{classname}}(){{/vendorExtensions.x-object-abstract}}
+
+        {{#hasChildren}}open {{/hasChildren}}{{#parent}}override {{/parent}}fun build(): {{classname}} {
+            return {{classname}}.validate(value)
+        }
+        {{#vars}}
+
+        {{#deprecated}}
+        @Deprecated("{{description}}")
+        {{/deprecated}}
+        fun set{{nameInCamelCase}}({{name}}: {{>data_type}}): Builder {
+            value.{{name}} = {{name}}
+            return this
+        }
+        {{/vars}}
+    }
+}
+
+open class {{classname}}Hook {
+    open fun onBeforeSave(x: {{classname}}): {{classname}} {
+        return {{classname}}.validate(x)
+    }
+    open fun onBeforeUpdate(x: {{classname}}): {{classname}} {
+        return {{classname}}.validate(x)
+    }
+    open fun onBeforeDelete(x: {{classname}}): {{classname}} {
+        return {{classname}}.validate(x)
+    }
+    open fun onAfterSave(x: {{classname}}) {
+    }
+}
+
+object {{classname}}HookFunction {
+    var hook = {{classname}}Hook()
+
+    @JvmStatic
+    @EngineHook(className = {{classname}}.CLASS, type = EngineHookType.beforeSave)
+    fun onBeforeSave(x: {{classname}}): {{classname}} {
+        return hook.onBeforeSave(x)
+    }
+
+    @JvmStatic
+    @EngineHook(className = {{classname}}.CLASS, type = EngineHookType.beforeUpdate)
+    fun onBeforeUpdate(x: {{classname}}): {{classname}} {
+        return hook.onBeforeUpdate(x)
+    }
+
+    @JvmStatic
+    @EngineHook(className = {{classname}}.CLASS, type = EngineHookType.beforeDelete)
+    fun onBeforeDelete(x: {{classname}}): {{classname}} {
+        return hook.onBeforeDelete(x)
+    }
+
+    @JvmStatic
+    @EngineHook(className = {{classname}}.CLASS, type = EngineHookType.afterSave)
+    fun onAfterSave(x: {{classname}}) {
+        return hook.onAfterSave(x)
+    }
+}

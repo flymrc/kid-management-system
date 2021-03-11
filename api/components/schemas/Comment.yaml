@@ -1,0 +1,17 @@
+type: object
+required:
+  - objectId
+  - postId
+  - authorId
+  - content
+properties:
+  objectId:
+    type: string
+  postId:
+    type: string
+  authorId:
+    type: string
+  content:
+    type: string
+  parentCommentId:
+    type: string

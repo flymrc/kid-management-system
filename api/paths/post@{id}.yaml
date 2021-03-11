@@ -1,0 +1,16 @@
+parameters:
+  - name: id
+    description: post id
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  security: []
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: PostExtended

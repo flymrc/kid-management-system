@@ -1,0 +1,16 @@
+Comment:
+  $ref: Comment.yaml
+CommentExtended:
+  $ref: CommentExtended.yaml
+CommentFindResult:
+  $ref: CommentFindResult.yaml
+Post:
+  $ref: Post.yaml
+PostExtended:
+  $ref: PostExtended.yaml
+PostFindResult:
+  $ref: PostFindResult.yaml
+PostReaction:
+  $ref: PostReaction.yaml
+PostReactionListResult:
+  $ref: PostReactionListResult.yaml

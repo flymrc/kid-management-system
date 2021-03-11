@@ -1,0 +1,8 @@
+type: object
+required:
+  - posts
+properties:
+  posts:
+    type: array
+    items:
+      type: PostExtended

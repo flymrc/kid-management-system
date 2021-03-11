@@ -1,0 +1,44 @@
+type: object
+required:
+  - objectId
+  - title
+  - content
+  - author
+  - work
+  - countThumbup
+  - countComment
+  - countRepost
+  - repliedAt
+properties:
+  objectId:
+    type: string
+  title:
+    type: string
+  content:
+    type: string
+  parentPostId:
+    type: string
+  rootPostId:
+    type: string
+  author:
+    type: Player
+  work:
+    type: WorkExtended
+  parentPostTitle:
+    type: string
+  countThumbup:
+    type: integer
+  countComment:
+    type: integer
+  countRepost:
+    type: integer
+  repliedAt:
+    type: string
+    format: date-time
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time
+

@@ -1,0 +1,23 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: KMS OpenAPI Backend
+servers:
+  - url: 'https://jdp8jr1r.lc-cn-n1-shared.com'
+    description: Production server
+  - url: 'http://localhost:8080/'
+    description: Local server for development
+paths:
+  $ref: paths/_index.yaml
+components:
+  securitySchemes:
+    leancloudAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: LeanCloud
+  schemas:
+    $ref: components/schemas/_index.yaml
+  parameters:
+    $ref: components/parameters/_index.yaml
+security:
+  - leancloudAuth: []

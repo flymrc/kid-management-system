@@ -1,0 +1,29 @@
+parameters:
+  - $ref: ../components/parameters/postId.yaml
+post:
+  parameters:
+    - name: parentCommentId
+      in: query
+      schema:
+        type: string
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required:
+            - authorId
+            - content
+          properties:
+            authorId:
+              type: string
+            content:
+              type: string
+  summary: Create a comment
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: Comment

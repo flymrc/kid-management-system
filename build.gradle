@@ -100,6 +100,15 @@ allprojects {
     }
 }
 
+task buildOpenApiYaml(type: Exec) {
+    inputs.files project.fileTree(dir: 'api/components')
+    inputs.files project.fileTree(dir: 'api/paths')
+    inputs.files 'api/openapi.yaml'
+    outputs.files 'api/openapi-dist.yaml'
+
+    commandLine 'npx', 'swagger-cli', 'bundle', 'api/openapi.yaml', '--outfile', 'api/openapi-dist.yaml', '--type', 'yaml'
+}
+
 task buildKotlinSpring(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
     generatorName = "kotlin-spring"
     inputSpec = "$rootDir/openapi.yaml"

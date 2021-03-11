@@ -1,0 +1,30 @@
+parameters:
+  - $ref: ../components/parameters/postId.yaml
+get:
+  parameters:
+    - name: before
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+    - name: after
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+    - name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+  security: []
+  summary: Get comment list
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: CommentFindResult

@@ -1,0 +1,16 @@
+type: object
+required:
+  - objectId
+  - title
+  - content
+properties:
+  objectId:
+    type: string
+  title:
+    type: string
+  content:
+    type: string
+  parentPostId:
+    type: string
+  rootPostId:
+    type: string

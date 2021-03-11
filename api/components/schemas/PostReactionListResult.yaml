@@ -1,0 +1,8 @@
+type: object
+required:
+  - postReactions
+properties:
+  postReactions:
+    type: array
+    items:
+      type: PostReaction

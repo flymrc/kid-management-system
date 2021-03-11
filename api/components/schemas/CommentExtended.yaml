@@ -1,0 +1,21 @@
+type: object
+required:
+  - objectId
+  - postId
+  - author
+  - content
+  - createdAt
+properties:
+  objectId:
+    type: string
+  postId:
+    type: string
+  author:
+    type: User
+  content:
+    type: string
+  parentComment:
+    type: CommentExtended
+  createdAt:
+    type: string
+    format: date-time

@@ -1,0 +1,36 @@
+post:
+  parameters:
+    - name: parentPostId
+      in: query
+      schema:
+        type: string
+    - name: development
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: false
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required:
+            - authorId
+            - title
+            - content
+          properties:
+            authorId:
+              type: string
+            title:
+              type: string
+            content:
+              type: string
+  summary: Create a post
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: Post

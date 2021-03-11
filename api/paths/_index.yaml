@@ -1,0 +1,14 @@
+/post:
+  $ref: post.yaml
+/post/{id}:
+  $ref: 'post@{id}.yaml'
+/post/find:
+  $ref: 'post@find.yaml'
+/post/{pid}/reaction:
+  $ref: 'post@{pid}@reaction.yaml'
+/post/{pid}/reaction/{id}:
+  $ref: 'post@{pid}@reaction@{id}.yaml'
+/post/{pid}/comment:
+  $ref: 'post@{pid}@comment.yaml'
+/post/{pid}/comment/find:
+  $ref: 'post@{pid}@comment@find.yaml'

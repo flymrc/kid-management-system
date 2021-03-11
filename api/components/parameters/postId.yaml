@@ -1,0 +1,6 @@
+name: pid
+description: Id from Post.
+in: path
+required: true
+schema:
+  type: string

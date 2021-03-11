@@ -1,0 +1,44 @@
+get:
+  parameters:
+    - name: sortBy
+      in: query
+      required: true
+      schema:
+        type: string
+    - name: before
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+    - name: after
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+    - name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: parentPostId
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: development
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: false
+  security: []
+  summary: Get post list
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: PostFindResult

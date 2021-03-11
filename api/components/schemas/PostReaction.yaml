@@ -1,0 +1,17 @@
+type: object
+required:
+  - objectId
+  - postId
+  - userId
+  - emoji
+properties:
+  objectId:
+    type: string
+  postId:
+    type: string
+  userId:
+    type: string
+  emoji:
+    type: string
+    enum:
+      - thumbup

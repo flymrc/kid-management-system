@@ -1,0 +1,40 @@
+parameters:
+  - $ref: ../components/parameters/postId.yaml
+post:
+  requestBody:
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required:
+            - userId
+            - emoji
+          properties:
+            userId:
+              type: string
+            emoji:
+              type: string
+  summary: Create a post reaction
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: PostReaction
+get:
+  parameters:
+    - name: userId
+      in: query
+      required: true
+      schema:
+        type: string
+  security: []
+  summary: Get reaction for post and user
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: PostReactionListResult

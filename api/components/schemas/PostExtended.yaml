@@ -20,7 +20,7 @@ properties:
   rootPostId:
     type: string
   author:
-    type: Player
+    type: User
   parentPostTitle:
     type: string
   countThumbup:

@@ -11,7 +11,7 @@ properties:
   postId:
     type: string
   author:
-    type: Player
+    type: User
   content:
     type: string
   parentComment:

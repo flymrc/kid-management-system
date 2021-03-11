@@ -2,14 +2,14 @@ type: object
 required:
   - objectId
   - postId
-  - playerId
+  - userId
   - emoji
 properties:
   objectId:
     type: string
   postId:
     type: string
-  playerId:
+  userId:
     type: string
   emoji:
     type: string

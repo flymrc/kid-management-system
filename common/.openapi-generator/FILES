@@ -1,0 +1,3 @@
+src/main/kotlin/com/kms/common/storage/Comment.kt
+src/main/kotlin/com/kms/common/storage/Post.kt
+src/main/kotlin/com/kms/common/storage/PostReaction.kt

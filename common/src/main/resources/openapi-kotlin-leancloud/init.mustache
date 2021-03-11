@@ -1,0 +1,16 @@
+package {{modelPackage}}
+
+import cn.leancloud.AVObject
+import cn.leancloud.LeanEngine
+
+fun initializeModels() {
+{{#modelPackage}}{{#models}}{{#model}}
+  AVObject.registerSubclass({{{classname}}}::class.java)
+{{/model}}{{/models}}{{/modelPackage}}
+}
+
+fun initializeHooks() {
+{{#modelPackage}}{{#models}}{{#model}}
+  LeanEngine.register({{{classname}}}HookFunction::class.java)
+{{/model}}{{/models}}{{/modelPackage}}
+}

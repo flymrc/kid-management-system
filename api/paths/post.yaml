@@ -26,8 +26,6 @@ post:
               type: string
             content:
               type: string
-            workId:
-              type: string
   summary: Create a post
   responses:
     '200':

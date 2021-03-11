@@ -1,14 +1,3 @@
-include ':app'
-include ':app-gltf-viewer'
-
-include ':webrtc-android'
-include ':xr-android'
-include ':webview-sdk'
-
-include ':openapi-server'
-include ':server'
-
 include ':common'
-include ":openapi-client"
 
-rootProject.name = "xoo"
+rootProject.name = "kms"

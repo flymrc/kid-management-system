@@ -7,7 +7,7 @@ post:
         schema:
           type: object
           required:
-            - playerId
+            - userId
             - emoji
           properties:
             playerId:
@@ -24,13 +24,13 @@ post:
             type: PostReaction
 get:
   parameters:
-    - name: playerId
+    - name: userId
       in: query
       required: true
       schema:
         type: string
   security: []
-  summary: Get reaction for post and player
+  summary: Get reaction for post and user
   responses:
     '200':
       description: Success

@@ -19,7 +19,6 @@ post:
             - authorId
             - title
             - content
-            - workId
           properties:
             authorId:
               type: string

@@ -22,11 +22,6 @@ get:
       required: false
       schema:
         type: integer
-    - name: collectionShortName
-      in: query
-      required: false
-      schema:
-        type: string
     - name: parentPostId
       in: query
       required: false

@@ -4,7 +4,6 @@ required:
   - title
   - content
   - author
-  - work
   - countThumbup
   - countComment
   - countRepost
@@ -22,8 +21,6 @@ properties:
     type: string
   author:
     type: Player
-  work:
-    type: WorkExtended
   parentPostTitle:
     type: string
   countThumbup:

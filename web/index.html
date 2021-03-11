@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>LeanEngine</title>
+<link rel="stylesheet" href="/style.css" />
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.10.0/dist/av-min.js"> </script>
+</head>
+<body>
+    <p><a href="/admin">KMS</a></p>
+    <p>User Name:<input type="text" name="user" id="user"> <span>ruichao</span></p>
+    <p>Password: <input type="password" name="pass" id="pass"> <span>123456</span></p>
+    <button onclick="login()">Login</button>
+
+    <script language="JavaScript">
+        AV.init({
+          appId: "jDP8JR1RNlbP8mOMzIFke2Wg-gzGzoHsz",
+          appKey: "cRatKArJldSYqjlfF7OWnsaC",
+          serverURL: "https://jdp8jr1r.lc-cn-n1-shared.com",
+        });
+
+        function login() {
+            const userName = document.getElementById("user").value;
+            const userPass = document.getElementById("pass").value;
+            AV.User.logIn(userName, userPass).then((user) => {
+                 document.cookie = "user-token=" + user.getSessionToken() + ";max-age=" + 3600*24*30;
+                 alert("login successful");
+                 window.location.href = "admin";
+            }, (error) => {
+                 alert("login failed");
+            });
+        }
+    </script>
+</body>
+</html>

@@ -25,4 +25,3 @@ fi
 checkRun './devtools/verify-reference.sh server/*.kt System.getenv EnvironmentStore|AppInitListener'
 
 checkGradle spotlessCheck
-#checkGradle :server:test

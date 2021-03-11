@@ -10,7 +10,7 @@ post:
             - userId
             - emoji
           properties:
-            playerId:
+            userId:
               type: string
             emoji:
               type: string

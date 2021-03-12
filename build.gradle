@@ -1,26 +1,26 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.versions = [
-            compileSdk: 29,
-            minSdk: 26,
-            targetSdk: 29,
-            buildTools: "30.0.0",
-            kotlin: "1.4.10",
-            kotlinCoroutine:'1.4.1',
-            hilt: '2.28-alpha',
-            leancloudStorage: '7.2.2',
+            compileSdk       : 29,
+            minSdk           : 26,
+            targetSdk        : 29,
+            buildTools       : "30.0.0",
+            kotlin           : "1.4.10",
+            kotlinCoroutine  : '1.4.1',
+            hilt             : '2.28-alpha',
+            leancloudStorage : '7.2.2',
             androidxLifecycle: "2.2.0",
     ]
 
     ext.deps = [
-            kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
-            kotlinReflect: "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
+            kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
+            kotlinReflect         : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
             kotlinAndroidCoroutine: "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutine}",
-            kotlinCoroutineRx2: "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:${versions.kotlinCoroutine}",
-            webrtc: "org.webrtc:google-webrtc:1.0.30039",
-            guavaAndroid: "com.google.guava:guava:27.0.1-android",
-            protobuf: "com.google.protobuf:protobuf-java:3.9.1",
-            timber: "com.jakewharton.timber:timber:4.7.1"
+            kotlinCoroutineRx2    : "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:${versions.kotlinCoroutine}",
+            webrtc                : "org.webrtc:google-webrtc:1.0.30039",
+            guavaAndroid          : "com.google.guava:guava:27.0.1-android",
+            protobuf              : "com.google.protobuf:protobuf-java:3.9.1",
+            timber                : "com.jakewharton.timber:timber:4.7.1"
     ]
 
     repositories {
@@ -66,7 +66,7 @@ spotless {
                 "common/src/main/kotlin/**/*.kt",
                 "openapi-client/src/main/kotlin/**/*.kt",
                 "openapi-server/src/main/kotlin/**/api/*Api.kt",
-                "openapi-server/src/main/kotlin/**/model/*.kt"
+                "openapi-server/src/main/kotlin/**/dto/*.kt"
         ])
         ktlint('0.39.0').userData(['disabled_rules': 'no-wildcard-imports'])
     }
@@ -109,16 +109,48 @@ task buildOpenApiYaml(type: Exec) {
     commandLine 'npx', 'swagger-cli', 'bundle', 'api/openapi.yaml', '--outfile', 'api/openapi-dist.yaml', '--type', 'yaml'
 }
 
+task buildKotlinClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+    dependsOn buildOpenApiYaml
+
+    generatorName = "kotlin"
+    inputSpec = "$rootDir/api/openapi-dist.yaml"
+    outputDir = "$rootDir/openapi-client"
+    apiPackage = "com.kms.openapi.api"
+    modelPackage = "com.kms.openapi.dto"
+    modelNameSuffix = "Dto"
+    invokerPackage = "com.kms.openapi"
+    library = "jvm-retrofit2"
+    configOptions = [
+            enumPropertyNaming  : "UPPERCASE",
+            serializationLibrary: "gson",
+            useCoroutines       : "true"
+    ]
+    typeMappings = [
+            "java.io.File"            : "RequestBody",
+            "java.time.OffsetDateTime": "java.time.Instant"
+    ]
+}
+
 task buildKotlinSpring(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
     generatorName = "kotlin-spring"
-    inputSpec = "$rootDir/openapi.yaml"
+    inputSpec = "$rootDir/api/openapi-dist.yaml"
     outputDir = "$rootDir/openapi-server"
     apiPackage = "com.kms.openapi_server.api"
-    modelPackage = "com.kms.openapi_server.model"
+    modelPackage = "com.kms.openapi_server.dto"
     invokerPackage = "com.kms.openapi_server"
+    modelNameSuffix = "Dto"
     configOptions = [
             enumPropertyNaming: "UPPERCASE",
-            gradleBuildFile: "false",
-            interfaceOnly: "true",
+            gradleBuildFile   : "false",
+            interfaceOnly     : "true",
     ]
+    typeMappings = [
+            "java.time.OffsetDateTime": "java.time.Instant"
+    ]
+
+}
+
+
+task buildOpenApi() {
+    dependsOn buildKotlinClient, buildKotlinSpring, ":common:buildLeancloudClient"
 }

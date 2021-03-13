@@ -20,7 +20,7 @@ get:
       schema:
         type: integer
   security: []
-  summary: Get comment list
+  summary: "# Get comment list"
   responses:
     '200':
       description: Success

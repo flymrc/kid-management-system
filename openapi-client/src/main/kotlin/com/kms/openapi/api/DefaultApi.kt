@@ -15,7 +15,7 @@ import com.kms.openapi.dto.PostReactionListResultDto
 
 interface DefaultApi {
     /**
-     * Get post list
+     * # Get post list
      * 
      * Responses:
      *  - 200: Success
@@ -32,7 +32,7 @@ interface DefaultApi {
     suspend fun postFindGet(@Query("sortBy") sortBy: kotlin.String, @Query("before") before: java.time.Instant? = null, @Query("after") after: java.time.Instant? = null, @Query("limit") limit: kotlin.Int? = null, @Query("parentPostId") parentPostId: kotlin.String? = null, @Query("development") development: kotlin.Boolean? = null): Response<PostFindResultDto>
 
     /**
-     * 
+     * # Get post by id
      * 
      * Responses:
      *  - 200: Success
@@ -44,7 +44,7 @@ interface DefaultApi {
     suspend fun postIdGet(@Path("id") id: kotlin.String): Response<PostExtendedDto>
 
     /**
-     * Get comment list
+     * # Get comment list
      * 
      * Responses:
      *  - 200: Success
@@ -59,7 +59,7 @@ interface DefaultApi {
     suspend fun postPidCommentFindGet(@Path("pid") pid: kotlin.String, @Query("before") before: java.time.Instant? = null, @Query("after") after: java.time.Instant? = null, @Query("limit") limit: kotlin.Int? = null): Response<CommentFindResultDto>
 
     /**
-     * Create a comment
+     * # Create a comment
      * 
      * Responses:
      *  - 200: Success
@@ -75,7 +75,7 @@ interface DefaultApi {
     suspend fun postPidCommentPost(@Path("pid") pid: kotlin.String, @Field("authorId") authorId: kotlin.String, @Field("content") content: kotlin.String, @Query("parentCommentId") parentCommentId: kotlin.String? = null): Response<CommentDto>
 
     /**
-     * Get reaction for post and user
+     * # Get reaction for post and user
      * 
      * Responses:
      *  - 200: Success
@@ -88,7 +88,7 @@ interface DefaultApi {
     suspend fun postPidReactionGet(@Path("pid") pid: kotlin.String, @Query("userId") userId: kotlin.String): Response<PostReactionListResultDto>
 
     /**
-     * 
+     * # Delete reaction by id
      * 
      * Responses:
      *  - 200: Success
@@ -101,7 +101,7 @@ interface DefaultApi {
     suspend fun postPidReactionIdDelete(@Path("pid") pid: kotlin.String, @Path("id") id: kotlin.String): Response<kotlin.Boolean>
 
     /**
-     * Create a post reaction
+     * # Create a post reaction
      * 
      * Responses:
      *  - 200: Success
@@ -116,7 +116,7 @@ interface DefaultApi {
     suspend fun postPidReactionPost(@Path("pid") pid: kotlin.String, @Field("userId") userId: kotlin.String, @Field("emoji") emoji: kotlin.String): Response<PostReactionDto>
 
     /**
-     * Create a post
+     * # Create a post
      * 
      * Responses:
      *  - 200: Success

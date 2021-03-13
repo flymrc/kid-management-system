@@ -56,6 +56,7 @@ Class | Method | HTTP request | Description
  - [com.kms.openapi.dto.PostFindResultDto](docs/PostFindResultDto.md)
  - [com.kms.openapi.dto.PostReactionDto](docs/PostReactionDto.md)
  - [com.kms.openapi.dto.PostReactionListResultDto](docs/PostReactionListResultDto.md)
+ - [com.kms.openapi.dto.UserDto](docs/UserDto.md)
 
 
 <a name="documentation-for-authorization"></a>

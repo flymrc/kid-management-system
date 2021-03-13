@@ -8,3 +8,4 @@ src/main/kotlin/com/kms/openapi_server/dto/PostExtendedDto.kt
 src/main/kotlin/com/kms/openapi_server/dto/PostFindResultDto.kt
 src/main/kotlin/com/kms/openapi_server/dto/PostReactionDto.kt
 src/main/kotlin/com/kms/openapi_server/dto/PostReactionListResultDto.kt
+src/main/kotlin/com/kms/openapi_server/dto/UserDto.kt

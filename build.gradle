@@ -150,7 +150,6 @@ task buildKotlinSpring(type: org.openapitools.generator.gradle.plugin.tasks.Gene
 
 }
 
-
 task buildOpenApi() {
     dependsOn buildKotlinClient, buildKotlinSpring, ":common:buildLeancloudClient"
 }

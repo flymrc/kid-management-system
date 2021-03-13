@@ -1,0 +1,12 @@
+type: object
+required:
+  - objectId
+  - nickname
+  - avatarUrl
+properties:
+  objectId:
+    type: string
+  nickname:
+    type: string
+  avatarUrl:
+    type: string

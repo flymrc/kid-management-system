@@ -35,14 +35,14 @@ All URIs are relative to *https://jdp8jr1r.lc-cn-n1-shared.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**postFindGet**](docs/DefaultApi.md#postfindget) | **GET** post/find | Get post list
-*DefaultApi* | [**postIdGet**](docs/DefaultApi.md#postidget) | **GET** post/{id} | 
-*DefaultApi* | [**postPidCommentFindGet**](docs/DefaultApi.md#postpidcommentfindget) | **GET** post/{pid}/comment/find | Get comment list
-*DefaultApi* | [**postPidCommentPost**](docs/DefaultApi.md#postpidcommentpost) | **POST** post/{pid}/comment | Create a comment
-*DefaultApi* | [**postPidReactionGet**](docs/DefaultApi.md#postpidreactionget) | **GET** post/{pid}/reaction | Get reaction for post and user
-*DefaultApi* | [**postPidReactionIdDelete**](docs/DefaultApi.md#postpidreactioniddelete) | **DELETE** post/{pid}/reaction/{id} | 
-*DefaultApi* | [**postPidReactionPost**](docs/DefaultApi.md#postpidreactionpost) | **POST** post/{pid}/reaction | Create a post reaction
-*DefaultApi* | [**postPost**](docs/DefaultApi.md#postpost) | **POST** post | Create a post
+*DefaultApi* | [**postFindGet**](docs/DefaultApi.md#postfindget) | **GET** post/find | # Get post list
+*DefaultApi* | [**postIdGet**](docs/DefaultApi.md#postidget) | **GET** post/{id} | # Get post by id
+*DefaultApi* | [**postPidCommentFindGet**](docs/DefaultApi.md#postpidcommentfindget) | **GET** post/{pid}/comment/find | # Get comment list
+*DefaultApi* | [**postPidCommentPost**](docs/DefaultApi.md#postpidcommentpost) | **POST** post/{pid}/comment | # Create a comment
+*DefaultApi* | [**postPidReactionGet**](docs/DefaultApi.md#postpidreactionget) | **GET** post/{pid}/reaction | # Get reaction for post and user
+*DefaultApi* | [**postPidReactionIdDelete**](docs/DefaultApi.md#postpidreactioniddelete) | **DELETE** post/{pid}/reaction/{id} | # Delete reaction by id
+*DefaultApi* | [**postPidReactionPost**](docs/DefaultApi.md#postpidreactionpost) | **POST** post/{pid}/reaction | # Create a post reaction
+*DefaultApi* | [**postPost**](docs/DefaultApi.md#postpost) | **POST** post | # Create a post
 
 
 <a name="documentation-for-models"></a>

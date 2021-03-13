@@ -4,18 +4,18 @@ All URIs are relative to *https://jdp8jr1r.lc-cn-n1-shared.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**postFindGet**](DefaultApi.md#postFindGet) | **GET** post/find | Get post list
-[**postIdGet**](DefaultApi.md#postIdGet) | **GET** post/{id} | 
-[**postPidCommentFindGet**](DefaultApi.md#postPidCommentFindGet) | **GET** post/{pid}/comment/find | Get comment list
-[**postPidCommentPost**](DefaultApi.md#postPidCommentPost) | **POST** post/{pid}/comment | Create a comment
-[**postPidReactionGet**](DefaultApi.md#postPidReactionGet) | **GET** post/{pid}/reaction | Get reaction for post and user
-[**postPidReactionIdDelete**](DefaultApi.md#postPidReactionIdDelete) | **DELETE** post/{pid}/reaction/{id} | 
-[**postPidReactionPost**](DefaultApi.md#postPidReactionPost) | **POST** post/{pid}/reaction | Create a post reaction
-[**postPost**](DefaultApi.md#postPost) | **POST** post | Create a post
+[**postFindGet**](DefaultApi.md#postFindGet) | **GET** post/find | # Get post list
+[**postIdGet**](DefaultApi.md#postIdGet) | **GET** post/{id} | # Get post by id
+[**postPidCommentFindGet**](DefaultApi.md#postPidCommentFindGet) | **GET** post/{pid}/comment/find | # Get comment list
+[**postPidCommentPost**](DefaultApi.md#postPidCommentPost) | **POST** post/{pid}/comment | # Create a comment
+[**postPidReactionGet**](DefaultApi.md#postPidReactionGet) | **GET** post/{pid}/reaction | # Get reaction for post and user
+[**postPidReactionIdDelete**](DefaultApi.md#postPidReactionIdDelete) | **DELETE** post/{pid}/reaction/{id} | # Delete reaction by id
+[**postPidReactionPost**](DefaultApi.md#postPidReactionPost) | **POST** post/{pid}/reaction | # Create a post reaction
+[**postPost**](DefaultApi.md#postPost) | **POST** post | # Create a post
 
 
 
-Get post list
+# Get post list
 
 ### Example
 ```kotlin
@@ -63,7 +63,7 @@ No authorization required
  - **Accept**: application/json
 
 
-
+# Get post by id
 
 ### Example
 ```kotlin
@@ -101,7 +101,7 @@ No authorization required
  - **Accept**: application/json
 
 
-Get comment list
+# Get comment list
 
 ### Example
 ```kotlin
@@ -145,7 +145,7 @@ No authorization required
  - **Accept**: application/json
 
 
-Create a comment
+# Create a comment
 
 ### Example
 ```kotlin
@@ -192,7 +192,7 @@ Configure leancloudAuth:
  - **Accept**: application/json
 
 
-Get reaction for post and user
+# Get reaction for post and user
 
 ### Example
 ```kotlin
@@ -232,7 +232,7 @@ No authorization required
  - **Accept**: application/json
 
 
-
+# Delete reaction by id
 
 ### Example
 ```kotlin
@@ -272,7 +272,7 @@ No authorization required
  - **Accept**: application/json
 
 
-Create a post reaction
+# Create a post reaction
 
 ### Example
 ```kotlin
@@ -317,7 +317,7 @@ Configure leancloudAuth:
  - **Accept**: application/json
 
 
-Create a post
+# Create a post
 
 ### Example
 ```kotlin

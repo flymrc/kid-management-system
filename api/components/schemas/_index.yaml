@@ -14,3 +14,5 @@ PostReaction:
   $ref: PostReaction.yaml
 PostReactionListResult:
   $ref: PostReactionListResult.yaml
+User:
+  $ref: User.yaml

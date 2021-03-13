@@ -8,6 +8,7 @@ docs/PostExtended.md
 docs/PostFindResult.md
 docs/PostReaction.md
 docs/PostReactionListResult.md
+docs/User.md
 src/main/kotlin/com/kms/openapi/api/DefaultApi.kt
 src/main/kotlin/com/kms/openapi/dto/CommentDto.kt
 src/main/kotlin/com/kms/openapi/dto/CommentExtendedDto.kt
@@ -17,6 +18,7 @@ src/main/kotlin/com/kms/openapi/dto/PostExtendedDto.kt
 src/main/kotlin/com/kms/openapi/dto/PostFindResultDto.kt
 src/main/kotlin/com/kms/openapi/dto/PostReactionDto.kt
 src/main/kotlin/com/kms/openapi/dto/PostReactionListResultDto.kt
+src/main/kotlin/com/kms/openapi/dto/UserDto.kt
 src/main/kotlin/org/openapitools/client/auth/HttpBearerAuth.kt
 src/main/kotlin/org/openapitools/client/infrastructure/ApiClient.kt
 src/main/kotlin/org/openapitools/client/infrastructure/ByteArrayAdapter.kt

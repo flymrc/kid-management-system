@@ -1,31 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.versions = [
-            compileSdk       : 29,
-            minSdk           : 26,
-            targetSdk        : 29,
-            buildTools       : "30.0.0",
             kotlin           : "1.4.10",
             kotlinCoroutine  : '1.4.1',
-            hilt             : '2.28-alpha',
             leancloudStorage : '7.2.2',
-            androidxLifecycle: "2.2.0",
     ]
 
     ext.deps = [
             kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
             kotlinReflect         : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
-            kotlinAndroidCoroutine: "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutine}",
             kotlinCoroutineRx2    : "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:${versions.kotlinCoroutine}",
-            webrtc                : "org.webrtc:google-webrtc:1.0.30039",
-            guavaAndroid          : "com.google.guava:guava:27.0.1-android",
             protobuf              : "com.google.protobuf:protobuf-java:3.9.1",
-            timber                : "com.jakewharton.timber:timber:4.7.1"
     ]
 
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google/' }
-        maven { url 'https://dl.bintray.com/umsdk/release' }
         maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
         google()
@@ -35,11 +24,7 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/public/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
-        classpath 'com.tencent.bugly:symtabfileuploader:2.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:${versions.hilt}"
-        classpath "gradle.plugin.org.gretty:gretty:3.0.3"
         classpath("org.openapitools:openapi-generator-gradle-plugin:5.0.0") {
             exclude group: "com.github.jknack", module: "handlebars"
             exclude group: "com.github.jknack", module: "handlebars-jackson2"

@@ -19,7 +19,7 @@ post:
               type: string
             content:
               type: string
-  summary: Create a comment
+  summary: "# Create a comment"
   responses:
     '200':
       description: Success

@@ -1,0 +1,20 @@
+apply plugin: 'kotlin'
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation deps.kotlin
+    implementation deps.kotlinReflect
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    implementation 'com.google.code.gson:gson:2.8.6'
+    testImplementation "io.kotlintest:kotlintest-runner-junit5:3.1.0"
+
+
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
+}
+compileKotlin.dependsOn ":buildKotlinClient"

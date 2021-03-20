@@ -8,6 +8,7 @@ parameters:
       type: string
 delete:
   security: []
+  summary: "# Delete reaction by id"
   responses:
     '200':
       description: Success

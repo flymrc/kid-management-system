@@ -1,0 +1,81 @@
+plugins {
+    id 'war'
+
+    id 'kotlin'
+    id 'kotlin-kapt'
+    id "org.jetbrains.kotlin.plugin.jpa" version "1.4.10"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.4.10"
+
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/google/' }
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://jitpack.io' }
+    flatDir { dirs("libs") }
+}
+
+def spring_boot_version = "2.4.2"
+
+dependencies {
+    implementation project(path: ':common')
+
+    implementation "javax.validation:validation-api:2.0.1.Final"
+    implementation deps.kotlin
+    implementation deps.kotlinReflect
+
+    implementation "org.springframework.boot:spring-boot-starter-web:$spring_boot_version"
+    implementation "org.springframework.boot:spring-boot-starter-jetty:$spring_boot_version"
+    implementation "org.springframework.boot:spring-boot-starter-security:$spring_boot_version"
+    implementation "org.springframework.boot:spring-boot-starter-log4j2:$spring_boot_version"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:$spring_boot_version"
+
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.4"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.11.4"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.4"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$spring_boot_version"
+    testImplementation 'org.springframework.security:spring-security-test:5.4.2'
+
+    implementation 'com.google.guava:guava:28.0-jre'
+
+    // region mapstruct
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    kapt 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+    // endregion
+
+    // region log4j
+    implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
+    implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
+    implementation 'org.apache.logging.log4j:log4j-web:2.13.3'
+    // endregion
+
+    // region aliyun log4j
+    implementation 'com.google.protobuf:protobuf-java:3.10.0'
+    implementation 'com.aliyun.openservices:aliyun-log-log4j2-appender:0.1.11'
+    // endregion
+}
+
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileKotlin.dependsOn ":buildKotlinSpring"
+
+task deployLeancloud(type: Exec) {
+    dependsOn bootWar
+    commandLine 'sh', '-c', 'mkdir -p target; cp -f build/libs/openapi-server.war ./target; lean deploy --war'
+}

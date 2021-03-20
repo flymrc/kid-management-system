@@ -34,7 +34,7 @@ get:
         type: boolean
         default: false
   security: []
-  summary: Get post list
+  summary: "# Get post list"
   responses:
     '200':
       description: Success

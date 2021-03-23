@@ -29,6 +29,7 @@ public class Application extends SpringBootServletInitializer {
   private static final String appId = System.getenv("LEANCLOUD_APP_ID");
   private static final String appKey = System.getenv("LEANCLOUD_APP_KEY");
   private static final String appMasterKey = System.getenv("LEANCLOUD_APP_MASTER_KEY");
+  private static final String hookKey = System.getenv("LEANCLOUD_APP_HOOK_KEY");
   private static final String appEnv = System.getenv("LEANCLOUD_APP_ENV");
   private static final String haveStaging = System.getenv("LEAN_CLI_HAVE_STAGING");
   private static boolean initialized = false;
@@ -56,7 +57,7 @@ public class Application extends SpringBootServletInitializer {
 
     // Initializes application.
     // Ensure that you only perform one initialization in the whole project.
-    LeanEngine.initialize(appId, appKey, appMasterKey, "");
+    LeanEngine.initialize(appId, appKey, appMasterKey, hookKey);
 
     // Uses masterKey for the whole project.
     GeneralRequestSignature.setMasterKey(appMasterKey);

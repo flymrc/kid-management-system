@@ -10,7 +10,6 @@ buildscript {
             kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
             kotlinReflect         : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
             kotlinCoroutineRx2    : "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:${versions.kotlinCoroutine}",
-            protobuf              : "com.google.protobuf:protobuf-java:3.9.1",
     ]
 
     repositories {

@@ -24,6 +24,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath "gradle.plugin.org.gretty:gretty:3.0.3"
         classpath("org.openapitools:openapi-generator-gradle-plugin:5.0.0") {
             exclude group: "com.github.jknack", module: "handlebars"
             exclude group: "com.github.jknack", module: "handlebars-jackson2"

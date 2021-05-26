@@ -2,5 +2,6 @@ include ':openapi-server'
 
 include ':common'
 include ":openapi-client"
+include ":server"
 
 rootProject.name = "kms"

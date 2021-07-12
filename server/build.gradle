@@ -1,0 +1,52 @@
+plugins {
+    id "org.gretty"
+    id 'war'
+    id 'kotlin'
+
+    id 'org.ajoberstar.grgit' version '4.1.0'
+}
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/google/' }
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation project(path: ':common')
+
+    // region log4j
+    implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
+    annotationProcessor 'org.apache.logging.log4j:log4j-core:2.13.3'
+    implementation 'org.apache.logging.log4j:log4j-web:2.13.3'
+    // endregion
+
+    // region aliyun log4j
+    implementation 'com.google.protobuf:protobuf-java:3.10.0'
+    implementation 'com.aliyun.openservices:aliyun-log-log4j2-appender:0.1.11'
+    // endregion
+
+    // region verify_schema
+    implementation 'org.yaml:snakeyaml:1.27'
+    // endregion
+
+    implementation 'com.github.wechatpay-apiv3:wechatpay-apache-httpclient:0.2.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
+    testImplementation 'junit:junit:4.13.2'
+    compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+war {
+    from(file("../common/kms-leancloud.yaml")){
+        into "schema"
+    }
+}
+
+task deployLeancloud(type: Exec) {
+    dependsOn war
+    commandLine 'sh', '-c', 'mkdir -p target; cp -f build/libs/server.war ./target; lean deploy --war'
+}

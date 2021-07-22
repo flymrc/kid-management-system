@@ -11,6 +11,8 @@
         <module name="kms.server" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="kms.openapi-client" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
